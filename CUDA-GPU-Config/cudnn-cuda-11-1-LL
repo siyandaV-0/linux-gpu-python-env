@@ -1,0 +1,15 @@
+sudo ln -sf libcudnn.so.8.0.5 libcudnn.so.8; 
+sudo ln -sf libcudnn.so.8 libcudnn.so; 
+sudo ln -sf libcudnn_adv_infer.so.8.0.5 libcudnn_adv_infer.so.8; 
+sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so; 
+sudo ln -sf libcudnn_adv_train.so.8.0.5 libcudnn_adv_train.so.8; 
+sudo ln -sf libcudnn_adv_train.so.8 libcudnn_adv_train.so;
+sudo ln -sf libcudnn_cnn_infer.so.8.0.5 libcudnn_cnn_infer.so.8;
+sudo ln -sf libcudnn_cnn_infer.so.8 libcudnn_cnn_infer.so;
+sudo ln -sf libcudnn_cnn_train.so.8.0.5 libcudnn_cnn_train.so.8;
+sudo ln -sf libcudnn_cnn_train.so.8 libcudnn_cnn_train.so;
+sudo ln -sf libcudnn_ops_infer.so.8.0.5 libcudnn_ops_infer.so.8;
+sudo ln -sf libcudnn_ops_infer.so.8 libcudnn_ops_infer.so;
+sudo ln -sf libcudnn_ops_train.so.8.0.5 libcudnn_ops_train.so.8;
+sudo ln -sf libcudnn_ops_train.so.8 libcudnn_ops_train.so;
+
