@@ -2,7 +2,7 @@
 
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
 	-D CMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/cmake \
-	-D CMAKE_INSTALL_PREFIX=~/anaconda3/envs/cv2_GPU \
+	-D CMAKE_INSTALL_PREFIX=~/anaconda3/envs/CV2_GPU \
 	-D INSTALL_PYTHON_EXAMPLES=ON \
 	-D INSTALL_C_EXAMPLES=OFF \
 	-D OPENCV_ENABLE_NONFREE=ON \
@@ -14,19 +14,15 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 	-D CUDA_ARCH_BIN=7.5 \
 	-D WITH_CUBLAS=1 \
 	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-	-D PYTHON2_EXECUTABLE=~/usr/bin/python2.7 \
-	-D PYTHON3_LIBRARY=~/anaconda3/envs/cv2_GPU/lib/libpython3.9.so \
-	-D PYTHON3_INCLUDE_DIR=~/anaconda3/envs/cv2_GPU/include/python3.9 \
-	-D PYTHON3_PACKAGES_PATH=~/anaconda3/envs/cv2_GPU/lib/python3.9/site-packages \
-	-D PYTHON3_EXECUTABLE=~/anaconda3/envs/cv2_GPU/bin/python3 \
-	-D PYTHON_DEFAULT_EXECUTABLE=~/anaconda3/envs/cv2_GPU/bin/python3 \	
+	-D PYTHON3_LIBRARY=~/anaconda3/envs/CV2_GPU/lib/libpython3.9.so \
+	-D PYTHON3_INCLUDE_DIR=~/anaconda3/envs/CV2_GPU/include/python3.9 \
+	-D PYTHON3_PACKAGES_PATH=~/anaconda3/envs/CV2_GPU/lib/python3.9/site-packages \
+	-D PYTHON3_EXECUTABLE=~/anaconda3/envs/CV2_GPU/bin/python3 \
+	-D PYTHON_DEFAULT_EXECUTABLE=~/anaconda3/envs/CV2_GPU/bin/python3 \
+	-D HAVE_opencv_python2=OFF \	
 	-D HAVE_opencv_python3=ON \
 	-D BUILD_TIFF=ON \
 	-D BUILD_EXAMPLES=ON ..
-	
-	
--D HAVE_opencv_python2=OFF \
-
 	
 
 # CMakelist for Python Virtual Env:	

@@ -73,25 +73,27 @@ $ nvcc --version
 ```
 #### **OR (Option 2: Ensures the latest version of Cuda is installed)**:
 ```
-$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
 
-$ sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+$ sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
 
-$ wget https://developer.download.nvidia.com/compute/cuda/11.4.2/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.2-470.57.02-1_amd64.deb
+$ wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
 
-$ sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.2-470.57.02-1_amd64.deb
+$ sudo dpkg -i cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
 
-$ sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
+$ sudo cp /var/cuda-repo-ubuntu2204-12-1-local/cuda-*-keyring.gpg /usr/share/keyrings/
 
 $ sudo apt-get update
 
-$ sudo apt-get -y install cuda-11.4
+$ sudo apt-get -y install cuda
 ```
 #### **You have to also install the cuDNN Library from Nvidia (its free but you have to sign up)**:
 
-> The following instructions are from this [Link](https://neptune.ai/blog/installing-tensorflow-2-gpu-guide)
 
-> Run the following comands after downloading the [cuDNN library](https://developer.nvidia.com/rdp/form/cudnn-download-survey):
+> Download cudnn [cuDNN library](https://developer.nvidia.com/rdp/form/cudnn-download-survey):<br>
+> Installation  guide for [cuDNN](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html) 
+
+1. Tar File Installation:
 ```
 $ tar -xvzf cudnn-11.4-linux-x64-v8.2.4.15.tgz
 ```
@@ -103,20 +105,52 @@ $ sudo cp cuda/lib64/libcudnn* /usr/local/cuda-11.4/lib64
 
 $ sudo chmod a+r /usr/local/cuda-11.4/include/cudnn.h /usr/local/cuda-11.4/lib64/libcudnn* 
 ```
-#### Chances are when installing cuDNN the library files are not linked it good practice to link these:
+
+2. Debian Local Installtion:
+
+##### Download the Debian local repository installation package. Before issuing the following commands, you must replace X.Y and 8.x.x.x with your specific CUDA and cuDNN versions.
+```
+$ sudo dpkg -i cudnn-local-repo-${OS}-8.x.x.x_1.0-1_amd64.deb
+```
+##### or
+```
+$ sudo dpkg -i cudnn-local-repo-${OS}-8.x.x.x_1.0-1_arm64.deb
+```
+##### Import the CUDA GPG key.
+```
+$ sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
+```
+##### Refresh the repository metadata.
+```
+$ sudo apt-get update
+```
+##### Install the runtime library.
+```
+$ sudo gdebi libcudnn8_8.x.x.x-1+cudaX.Y_amd64.deb
+```
+##### Install the developer library.
+```
+$ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb 
+```
+##### Install the code samples and the cuDNN library documentation.
+```
+$ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
+```
+#### If you choose the Method 1 when installing cuDNN the library, the files are not linked it good practice to link these:
 
 > To link cudnn Library files (These are where you copied them in /usr/local/cuda-11.4/lib64/) :
-  -  Copy and Paste the Code on `CUDA-GPU-Config/cudnn-cuda-11-4-LL.txt` onto the terminal.
+  -  Copy and Paste the Code on `CUDA-GPU-Config/cudnn-cuda-12-0-LL.txt` onto the terminal.<br><br>
+
 
 #### Export CUDA environment variables(set your path to point to CUDA binaries):
 
 > Article to understand [Setting your path](https://opensource.com/article/17/6/set-path-linux)
 ```
-$ echo 'export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}' >> ~/.bashrc
+$ echo 'export PATH=/usr/local/cuda-12.1/bin${PATH:+:${PATH}}' >> ~/.bashrc
 
-$ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-11/lib64:/usr/local/cuda-11.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"' >> ~/.bashrc
+$ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/usr/local/cuda-12.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"' >> ~/.bashrc
 
-$ echo 'export PATH=/usr/lib/cuda-11.4/include:$PATH' >> ~/.bashrc
+$ echo 'export PATH=/usr/lib/cuda-12.1/include:$PATH' >> ~/.bashrc
 
 $ sudo reboot
 ```
