@@ -1,5 +1,10 @@
-sudo ln -sf libcudnn.so.8.0.5 libcudnn.so.8; 
-sudo ln -sf libcudnn.so.8 libcudnn.so; 
+#!/bin/bash
+
+CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
+cd /usr/local/${CUDA-VERSION}/lib64/
+
+sudo ln -sf libcudnn.so.8.0.5 libcudnn.so.8 \ 
+sudo ln -sf libcudnn.so.8 libcudnn.so \ 
 sudo ln -sf libcudnn_adv_infer.so.8.0.5 libcudnn_adv_infer.so.8; 
 sudo ln -sf libcudnn_adv_infer.so.8 libcudnn_adv_infer.so; 
 sudo ln -sf libcudnn_adv_train.so.8.0.5 libcudnn_adv_train.so.8; 
