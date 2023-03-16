@@ -1,4 +1,7 @@
 
+<svg width="100px" height="100px" xmlns="http://www.w3.org/2000/svg">
+
+
 <h1 style="text-align:center;background-color:DodgerBlue;"> Linux Work Environment Setup </h1>
 
 ---
@@ -9,7 +12,7 @@
 <br>
 <h3 style="text-align:center;background-color:Aquamarine; color:black"> GPU Drivers </h3>
 <br>
-<h4 style="background-color:LightGray; color:black;"  "> First update your system: </h4>
+<h4 style="background-color:LightGray; color:black;"> First update your system: </h4>
 
 ```
 $ sudo apt-get update 
@@ -18,43 +21,42 @@ $ sudo apt-get upgrade
 ```
 
 
-<h4 style="background-color:LightGray; color:black;"  "> Show available drivers: </h4>
+<h4 style="background-color:LightGray; color:black;"> Show available drivers: </h4>
  
 ```
 $ ubuntu-drivers devices
 ```
 
-
-<h4 style="background-color:LightGray; color:black;"  "> Install Nvidia Drivers (2 ways, depending on your preference): </h4>
+<h4 style="background-color:LightGray; color:black;" name="nvidia-driver"> Install Nvidia Drivers (2 ways, depending on your preference): </h4>
 
 ``` 
  $ sudo ubuntu-drivers autoinstall
 ```
 
-<h4 style="background-color:LightGray; color:black;"  "> OR (Preferable Option)</h4>
+<h4 style="background-color:LightGray; color:black;"> OR (Preferable Option)</h4>
 
 ```
 $ sudo apt install nvidia-driver -< latest version available for your pc>
 ```
-<h4 style="background-color:LightGray; color:black;"  "> e.g.: sudo apt install nvidia-driver-460 </h4>
+<h4 style="background-color:LightGray; color:black;"> e.g.: sudo apt install nvidia-driver-460 </h4>
 <br>
 
 ```
 $ sudo reboot
 ```
 
-<h4 style="background-color:LightGray; color:black;"  "> Detect if there nvidia drivers are installed: </h4>
+<h4 style="background-color:LightGray; color:black;"> Detect if there nvidia drivers are installed: </h4>
 
 ```
 $ nvidia-smi
 ```
 
-<h4 style="background-color:LightGray; color:black;"  "> Example output if they are installed correctly:</h4>
+<h4 style="background-color:LightGray; color:black;"> Example output if they are installed correctly:</h4>
 
 ![nvidia-smi](nvidia-smi.png)
 
 
-<h4 style="background-color:LightGray; color:black;"  "> Change your drivers (most-likely from) on-demand to now installed nvidia: </h4>
+<h4 style="background-color:LightGray; color:black;"> Change your drivers (most-likely from) on-demand to now installed nvidia: </h4>
 
 ```
 $ sudo prime-select query
@@ -80,7 +82,7 @@ $ sudo reboot
 ```
 $ nvcc --version
 ```
-<h4 style="background-color:LightGray; color:black;"> OR (Option 2: Ensures the latest version of Cuda is installed):</h4>
+<h4 style="background-color:LightGray; color:black;" name="cuda_install"> OR (Option 2: Ensures the latest version of Cuda is installed):</h4>
 
 ```
 $ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
@@ -98,7 +100,7 @@ $ sudo apt-get update
 $ sudo apt-get -y install cuda
 ```
 <br>
-<h3 style="text-align:center;background-color:Aquamarine; color:black" name="cudnn_install">Install cuDNN - CUDA Deep Learning Library </h3>
+<h3 style="text-align:center;background-color:Aquamarine; color:black" name="cuDNN_install">Install cuDNN - CUDA Deep Learning Library </h3>
 <br>
 <h4 style="background-color:LightGray; color:black;"> You have to also install the cuDNN Library from Nvidia (it's free, but you have to sign up)</h4>
 
@@ -156,30 +158,41 @@ $ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
 $ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
-<h4 style="background-color:Gold; color:black" name="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually:
-</h5>
- 
-<h5 style="background-color:LightGray; color:black;"> To link cudnn Library files (These are where you copied them in /usr/local/cuda-11.4/lib64/) :</h5> 
+<h4 style="background-color:Gold; color:black" name="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
+<h4 style="background-color:LightGray; color:black;">   
+This may give you issues when using the command <code>ldconfig</code>:
+</h4>
 
-  * You cand do so with `ldconfig`:
   ```
     $ sudo ldconfig
   ```
 
-  * Check if worked
-  ```
-    $ sudo ldconfig -p | grep 'libcudnn*'
-  ```
-<h5 style="background-color:LightGray; color:black;"> In the case where `ldconfig` does not work , you link the `libcudnn*.so` files manually :
-</h5>
 
-  * Run the cudnn-cuda symlink bash script `CUDA-GPU-Config/cudnn-cuda-symlink.sh` onto the terminal:
+<h4 style="background-color:LightGray; color:black;"> 
+In the case where <code>ldconfig</code> does not work, you link the <code>libcudnn*.so</code> files manually  
+<ul>
+  <li> Run the cudnn-cuda symlink bash script <code>CUDA-GPU-Config/cudnn-cuda-symlink.sh</code> onto the terminal:
+</ul>
+</h4>  
+
   ```
    $ bash CUDA-GPU-Config/cudnn-cuda-symlink.sh 
   ```
-<h4 style="background-color:LightGray; color:black;"> Export CUDA environment variables(set your path to point to CUDA binaries):</h4> 
 
-> Article to understand [Setting your path](https://opensource.com/article/17/6/set-path-linux)
+ <h4 style="background-color:LightGray; color:black;"> Check if worked
+</h4> 
+
+  ```
+    $ sudo ldconfig -p | grep 'libcudnn*'
+  ```
+
+<h4 style="background-color:LightGray; color:black;" name="export_env"> Export CUDA environment variables(set your path to point to CUDA binaries):
+<ul>
+  <li>Article to understand <a href="https://opensource.com/article/17/6/set-path-linux">Setting your path</a>
+</ul>
+</h4> 
+
+
 ```
 $ echo 'export PATH=/usr/local/cuda-12.1/bin${PATH:+:${PATH}}' >> ~/.bashrc
 
@@ -189,16 +202,65 @@ $ echo 'export PATH=/usr/lib/cuda-12.1/include:$PATH' >> ~/.bashrc
 
 $ sudo reboot
 ```
-<h4 style="background-color:LightGray; color:black;"> Check CUDA version to confirm the installation:</h4>
+<h4 style="background-color:LightGray; color:black;" name="cuda_version"> Check CUDA version to confirm the installation:</h4>
 
 ```
 $ nvcc --version
 ```
-<h4 style="background-color:LightGray; color:black;"> Check cuDNN:</h4>
+<h4 style="background-color:LightGray; color:black;" name="cudnn_version"> Check cuDNN:</h4>
 
 ```
 $ /sbin/ldconfig -N -v $(sed ‘s/:/ /’ <<< $LD_LIBRARY_PATH) 2>/dev/null | grep libcudnn
 ```
+---
+
+<br>
+<br>
+<br>
+
+---
+<h2 style="background-color:Aquamarine; color:black"> Git Setup:
+</h2>
+
+---
+<h4 style="background-color:LightGray; color:black;"> Install and setup git:
+</h4>
+
+```
+$ sudo apt install git
+
+$ sudo reboot
+
+$ git config --list
+
+$ git config --global user.name "John Doe"
+
+$ git config --global user.email johndoe@example.com
+
+$ git config --global core.editor gedit 
+```
+
+<h4 style="background-color:LightGray; color:black;"> 
+  <ul>
+    <li> The editor can be emacs/vim or any other editor of personal choice.
+  </ul>
+</h4>
+<br>
+<h4 style="background-color:LightGray; color:black;">Link your local and remote repository using the SSH key on Gitlab:
+</h4>
+
+```
+$ ssh-keygen 
+```
+<h4 style="background-color:LightGray; color:black;"> 
+  <ul>
+    <li> The public ssh key is the .ssh/id_rsa.pub file in the .ssh hidden folder.
+    <li> Copy this and paste it under preferences > ssh keys > add ssh key on gitlab.
+  </ul>
+</h4> 
+
+---
+
 <br>
 <br>
 <br>
@@ -337,6 +399,11 @@ $ pip3 install -r requirements.txt
 <h3 style="text-align:center;background-color:Aquamarine; color:black">Computer Vision Enviroment : </h3> 
 
 ---
+<h4 style="background-color:LightSteelBlue; color:black"> 
+  
+  Create <a href="#new_env">computer vision anaconda env </a> 
+  
+</h4>
 
 <h4 style="background-color:LightSteelBlue; color:black">Tensorflow Installation: </h4> 
 
@@ -348,6 +415,12 @@ $ pip3 install tensorflow
 
 ```
 $ pip3 install torch torchvision torchaudio
+```
+<h4 style="background-color:LightSteelBlue; color:black"> Install other basic cv packages:
+</h4>
+
+```
+$ pip3 install -r cv-requirements.txt
 ```
 
 <h4 style="background-color:LightSteelBlue; color:black">OpenCV Installation: 
@@ -402,15 +475,14 @@ OPENCV With GPU Support from Source Code
 
 <h5 style="background-color:LightGray; color:black;">
   <ul> 
-    <li>Create <a href="#new_env">anaconda env </a> 
-    <li>Then run the following command to avoid conflict with apt libtiff package:
+    <li>Run the following command in your computer vision environment to avoid conflict with apt libtiff package:
   </ul>
 </h5>
 
 ```
 $ conda uninstall libtiff
 ```
-<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bash-script`  with the content shown below to build opencv from source code:</h5>
+<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bash-script`  which has the cli commands shown below to build opencv from source code:</h5>
 
 ```
 $ bash opencv-bash-script
@@ -418,10 +490,45 @@ $ bash opencv-bash-script
 
 ![opencv-bash-script](opencv-bash-script.png)
 
-### TensorflowV1 (For MRCNN models):
 
+<h3 style="text-align:center;background-color:Aquamarine; color:black">Tensorflow V1 (For MRCNN models) Environment: </h3> 
 
-#### Additional packages:
+<h4 style="background-color:LightGray; color:black;">  Working with object detection algorithms such as mask R-CNN requires earlier versions of Tensorflow:
+<ul>
+<li> Tensorflow Version 1.8 (or earlier) <br>
+<li>The version of Cuda and cuDNN that are compatible with TensorFlow.v1 are CUDA-9.0 and cuDNN-7 
+<li> (See Cuda & cuDNN installation instructions),<br>
+<li> Note you would have to create a separate Anaconda environment for this as well.
+<ul>
+</h4>
+
+<h4 style="background-color:LightGray; color:black;">
+Create <a href=#new_env> tensorflow v1 anaconda env </a>
+</h4>
+<br>
+
+<h4 style="background-color:LightGray; color:black;">The following are some important packages compatible with an MRCNN Model: 
+</h4>
+
+<h4 style="background-color:LightGray; color:black;"> keras version 2.0.8:</h4>
+
+```
+$ pip3 install keras==2.0.8
+```
+<h4 style="background-color:LightGray; color:black;"> tensorflow version 1.8 or earlier:</h4>
+
+```
+$ pip3 install tensorflow-gpu==1.8.0
+```
+<h4 style="background-color:LightGray; color:black;"> version mrcnn 0.1:</h4>
+
+```
+$ pip3 install mrcnn==0.1
+```
+
+<h4 style="background-color:LightGray; color:black;"> Packages required for MRCNN model:
+</h4>
+
 ```
 $ pip3 install scikit-image
 
@@ -432,100 +539,67 @@ $ pip3 install pycocotools
 $ pip3 install h5py==2.10.0 
 ```
 
->Working with object detection algorithms such as mask R-CNN requires earlier versions of Tensorflow: 
-> Tensorflow Version 1.8 (or earlier) <br>
->The version of Cuda and cuDNN that are compatible with TensorFlow.v1 are CUDA-9.0 and cuDNN-7 
-> (See Cuda & cuDNN installation instructions below),<br>
-> Note you would have to create a separate Anaconda environment for this as well.
-
-#### The following are some important packages compatible with an MRCNN Algorithm: 
-> keras version 2.0.8:
-```
-$ pip3 install keras==2.0.8
-```
-> tensorflow version 1.8 or earlier:
-```
-$ pip3 install tensorflow-gpu==1.8.0
-```
-> version mrcnn 0.1:
-```
-$ pip3 install mrcnn==0.1
-```
----
-## Git Setup:
-
----
-
-#### Install and setup git:
-```
-$ sudo apt install git
-
-$ sudo reboot
-
-$ git config --list
-
-$ git config --global user.name "John Doe"
-
-$ git config --global user.email johndoe@example.com
-
-$ git config --global core.editor gedit 
-```
-* The editor can be emacs/vim or any other edit of personal choice.
-
-#### Link your local and remote repository using the SSH key on Gitlab:
-```
-$ ssh-keygen 
-```
-* The public ssh key is the .ssh/id_rsa.pub file in the .ssh hidden folder.<br>
-* Copy this and paste it under preferences > ssh keys > add ssh key on gitlab. 
-
-
 <h3 style="text-align:center;background-color:Aquamarine; color:black">Natural Language Processing Enviroment : </h3> 
-
-
-
-
-## **Miscelleneous**:
-
----
-
-### You may have to install a different versions of CUDA and cuDNN (For example if you're using a different version of tensorflow that requires downgraded versions.)
-
-> The following commands are from the combination of the two links below:
-> * [Link 1](https://towardsdatascience.com/installing-multiple-cuda-cudnn-versions-in-ubuntu-fcb6aa5194e2) 
-> * [Link 2](https://medium.com/thecyphy/multi-version-cuda-and-tensorflow-gpu-on-ubuntu-18-04-lts-22cfcd32f06a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkOTI5YzYzZmYxMDgyYmJiOGM5OWY5OTRmYTNmZjRhZGFkYTJkMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MzI4NzIzOTQsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMzg1NzEyMTAxNzMxOTkwOTU1MSIsImVtYWlsIjoic25nY29ibzQ5QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiU2l5YW5kYSBTJ3BoZXNpaGxlIE5nY29ibyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaDhiV3ZHWEFzYnpCOXBzTjJEd1FoeEZ5ODdFQnN5aWpXRkZaU21NZz1zOTYtYyIsImdpdmVuX25hbWUiOiJTaXlhbmRhIFMncGhlc2lobGUiLCJmYW1pbHlfbmFtZSI6Ik5nY29ibyIsImlhdCI6MTYzMjg3MjY5NCwiZXhwIjoxNjMyODc2Mjk0LCJqdGkiOiIzYmRlODM1YzU0ZTk4NDU1ZDA5ZTY0MTBhZDBhYTBlM2YwMmU1ZTEzIn0.LRclEv-LjyY8HHMGR8IX3uQ438ZbJzM_RSnCFQMJV4q6Wg8sJsfT0__FxAPxQJ-5D8o574FgWyqpaAq2NZrB-9FMDHxiPsSnBR78Ftx9djBJVSn2XwipFZRFQ_2DdWGUycALurMqrIuHpssh2L2_s0O_ScYG36lY5sKM-WujpU06wejbyrbhn_k47YY67SoABuVkkdGU4oWBDp2n-UaxZ58mDdrSKLWoOkbokdUbm9f378wSnJd-6F0E0zaDWxC0u-MHMOPjyj2peDlGg7DCNkYlJpx_0NfKYYR9J_YtvJy0wXDxtHQbxM1cgL8VtNVCoYMNH05CqJS4GDzFIzAkEQ)
-
-#### <b> [Tensorflow-Keras-CUDA-cuDNN compatibility table](https://www.tensorflow.org/install/source#gpu) </b>
-
 <br>
 
-#### (1) Install the version of the [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit-archive) you need.
-- Before You start make sure you disable any active anaconda environment (including base)!
+<h4 style="background-color:LightSteelBlue; color:black">Tensorflow Installation: </h4> 
+
+```
+$ pip3 install tensorflow
+```
+<h4 style="background-color:LightSteelBlue; color:black">Pytorch Installation: </h4> 
+
+```
+$ pip3 install torch torchvision torchaudio
+```
+
+<h4 style="background-color:LightSteelBlue; color:black"> Basic packages   
+</h4> 
+
+```
+$ pip3 install -r nlp-requirements.txt 
+```
+
+
+<h3 style="text-align:center;background-color:Aquamarine; color:black"> Miscelleneous
+</h3> 
+
+---
+<h4 style="background-color:LightSteelBlue; color:black"> You may have to install a different versions of CUDA and cuDNN (For example if you're using a different version of tensorflow that requires downgraded versions).
+</h4>
+<h4 style="background-color:LightSteelBlue; color:black">
+Follow the tutorials from the  links below:
+<ul>
+  <li> <a href="https://towardsdatascience.com/installing-multiple-cuda-cudnn-versions-in-ubuntu-fcb6aa5194e2"> Link 1</a> 
+  <li> <a href="https://medium.com/thecyphy/multi-version-cuda-and-tensorflow-gpu-on-ubuntu-18-04-lts-22cfcd32f06a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkOTI5YzYzZmYxMDgyYmJiOGM5OWY5OTRmYTNmZjRhZGFkYTJkMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MzI4NzIzOTQsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMzg1NzEyMTAxNzMxOTkwOTU1MSIsImVtYWlsIjoic25nY29ibzQ5QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiU2l5YW5kYSBTJ3BoZXNpaGxlIE5nY29ibyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaDhiV3ZHWEFzYnpCOXBzTjJEd1FoeEZ5ODdFQnN5aWpXRkZaU21NZz1zOTYtYyIsImdpdmVuX25hbWUiOiJTaXlhbmRhIFMncGhlc2lobGUiLCJmYW1pbHlfbmFtZSI6Ik5nY29ibyIsImlhdCI6MTYzMjg3MjY5NCwiZXhwIjoxNjMyODc2Mjk0LCJqdGkiOiIzYmRlODM1YzU0ZTk4NDU1ZDA5ZTY0MTBhZDBhYTBlM2YwMmU1ZTEzIn0.LRclEv-LjyY8HHMGR8IX3uQ438ZbJzM_RSnCFQMJV4q6Wg8sJsfT0__FxAPxQJ-5D8o574FgWyqpaAq2NZrB-9FMDHxiPsSnBR78Ftx9djBJVSn2XwipFZRFQ_2DdWGUycALurMqrIuHpssh2L2_s0O_ScYG36lY5sKM-WujpU06wejbyrbhn_k47YY67SoABuVkkdGU4oWBDp2n-UaxZ58mDdrSKLWoOkbokdUbm9f378wSnJd-6F0E0zaDWxC0u-MHMOPjyj2peDlGg7DCNkYlJpx_0NfKYYR9J_YtvJy0wXDxtHQbxM1cgL8VtNVCoYMNH05CqJS4GDzFIzAkEQ">Link 2</a>    
+</ul>
+</h4> 
+<br>
+<h4 style="background-color:LightSteelBlue; color:black">
+<a href="https://www.tensorflow.org/install/source#gpu"> Tensorflow-Keras-CUDA-cuDNN compatibility table.
+    </a>
+</h4>
+<br>
+<h4 style="background-color:LightSteelBlue; color:black">
+<ol>
+  <li> Install the version of the <a href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA Toolkit</a> you need.
+
+  - Before You start make sure you disable any active anaconda environment (including base)!
   
-- (Here you follow the instructions for CUDA Toolkit installation using option 2 above,
- however instead of installing the latest version you install the version you need):
-
-```
-$ wget https://developer.download.nvidia.com/compute/cuda/X.X.X/local_installers/cuda-repo-ubuntu<version>-local_X.X.X-XXX.XX.XX-X_amd64.deb
-
-$ sudo dpkg -i cuda-repo-ubuntu<version>-local(-XX.X.XX.X)_X.X.X-XXX.XX.XX-X_amd64.deb
-
-$ sudo apt-key add /var/cuda-repo-<version>-local(-XX.X.XX.X)/7fa2af80.pub
-
-$ sudo apt-get update
-
-$ sudo apt-get -y install cuda-X.X
-```
-#### (2) You have to install cuDNN just like we did [previously](#cudnn_install)
-
-#### Link cuDNN library files using  Like we did [here](#sym_link)
+  - Follow the instructions for <a href="#cuda_install"> CUDA Toolkit installation using option 2 above</a> 
+  - However instead of installing the latest version you install the version you need
 
 
-#### (3) Reinstall The Latest Nvidia drivers (Incase this earlier version of CUDA downgrades them):
-#### (4) Export CUDA environment variables(set your path to point to CUDA binaries). To set them, run:
-#### (5) Reboot your system:
-#### (6) Check CUDA version to confirm the installation:
-#### (7) Check cuDNN:
+<li> Follow instructions to install <a href="#cuDNN_install"> cuDNN</a> as above.
+
+- Link cuDNN <a href="#sym_link">library files</a>
+
+<li> Reinstall <a href="#nvidia_driver">The Latest Nvidia drivers</a> (Incase this earlier version of CUDA downgrades them)
+<li> <a href="#export_envs"> Export CUDA environment </a> variables(set your path to point to CUDA binaries).
+<li> Reboot your system.
+<li> Check <a href="#cuda_version">CUDA version</a> to confirm the installation.
+<li> Check <a href="#cudnn_version">cuDNN </a>.
+</h4>
 
 ---
 ### The process below needs to be automated:
@@ -539,25 +613,40 @@ $ gedit ~/.bashrc
 
 ![nvccversion](nvccversion.png)
 
+<br>
+<br>
+<br>
 
 ---
-## If ever you need to uninstall the nvidia-drivers (If they get corrupted; There's a miss-match between drivers and libraries):
+<h2 style="background-color:Aquamarine; color:black" name="new_env"> Uninstall the nvidia-drivers 
+ </h2> 
 
 ---
 
-#### The following command shows all available packages that are related to nvidia: 
+<h4 style="background-color:LightGray; color:black">
+If your drivers get corrupted or there's a miss-match between drivers and libraries</h4>
+<br>
+<h4 style="background-color:LightGray; color:black">The following command shows all available packages that are related to nvidia: 
+</h4>
+
 ```  
 $ dpkg -l | grep -i nvidia
 ```
-#### This command below removes all of the nvidia-packages:
+<h4 style="background-color:LightGray; color:black"> This command below removes all of the nvidia-packages:
+</h4>
+
 ```
 $ sudo apt-get remove --purge '^nvidia-.*' 
 ```
-#### Incase the above command doesnt work try the one below:
+<h4 style="background-color:LightGray; color:black"> Incase the above command doesnt work try the one below:
+</h4>
+
 ```
 $ sudo dpkg -P $(dpkg -l | grep nvidia | awk '{print $2}')
 ```
-#### Purge any remaining NVIDIA configuration files and the associated dependencies that they may have been installed with:
+<h4 style="background-color:LightGray; color:black"> Purge any remaining NVIDIA configuration files and the associated dependencies that they may have been installed with:
+</h4>
+
 ```
 $ sudo apt autoremove
 
@@ -565,48 +654,79 @@ $ sudo apt autoclean
 
 $ sudo apt-get install ubuntu-desktop
 ```
+
 ---
-## If you ever need to uninstall the current version of the CUDA Toolkit 
+<h2 style="background-color:Aquamarine; color:black" name="new_env">  Uninstall the the CUDA Toolkit 
+</h2> 
 
 ---
 
-#### Open a terminal window and type the following three commands to get rid of any CUDA packages you may already have installed:
+<h4 style="background-color:LightGray; color:black"> Open a terminal window and type the following three commands to get rid of any CUDA packages you may already have installed:
+</h4>
+ 
 ```
 $ sudo apt remove --autoremove nvidia-cuda-toolkit
 
 $ sudo apt-get --purge -y remove 'cuda*'
 ```
-#### Purge any remaining CUDA configuration files and the associated dependencies that they may have been installed with:
+<h4 style="background-color:LightGray; color:black"> Purge any remaining CUDA configuration files and the associated dependencies that they may have been installed with:</h4> 
+
 ```
 $ sudo apt-get autoremove
 
 $ sudo apt-get autoclean
 ```
-#### Remove any existing CUDA folders you may have in /usr/local/
-> There shouldn’t be any folders with the name “cuda” or “cuda-anything” in usr/local/ at this point!
+<h4 style="background-color:LightGray; color:black">
+Remove any existing CUDA folders you may have in /usr/local/
+<ul>
+<li> There shouldn’t be any folders with the name “cuda” or “cuda-anything” in usr/local/ at this point!
+<ul>
+</h4>
+
 ```
 $ ls /usr/local/ | grep cuda
 
 $ sudo rm -rf /usr/local/cuda*
 ```
----
-## ROS Noetic(Ubuntu20.04)
+<br>
+<br>
+<br>
 
 ---
 
-#### Creating a ROS Work Space:
+<h2 style="background-color:Aquamarine; color:black" name="new_env">  ROS Noetic(Ubuntu20.04)
+</h2> 
 
-> Python 3 users in ROS Melodic and earlier: note, if you are building ROS from source to achieve <br>Python 3 compatibility, and have setup your system appropriately (ie: have the Python 3 versions <br>of all the required ROS Python packages installed, such as catkin) the first catkin_make command <br>in a clean catkin workspace must be:
+---
+
+#### </h4>
+<h4 style="background-color:Gold; color:black">
+Creating a ROS Work Space:
+<ul>
+  <li> Python 3 users in ROS Melodic and earlier: Note, if you are building ROS from source to achieve <br>
+  Python 3 compatibility, and have setup your system appropriately (ie: have the Python 3 versions <br>
+  of all the required ROS Python packages installed, such as catkin) the first catkin_make command <br>
+  in a clean catkin workspace must be:
+<ul>
+</h4>
+
 ```
 $ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
-* This will configure catkin_make with Python 3. You may then proceed to use just catkin_make for <br>subsequent builds.
+<h4 style="background-color:LightSkyBlue; color:black"> This will configure catkin_make with Python 3. You may then proceed to use just catkin_make for <br>subsequent builds.
+</h4>
+<br>
+<h4 style="background-color:LightGray; color:black"> Source new setup file on devel folder in the catkin workspace (setup.bash) :
+</h4>
 
-> Source new setup file on devel folder in the catkin workspace (setup.bash) :
 ```
 $ source devel/setup.bash
 ```
-> Or permanently to the bashrc:
+<h4 style="background-color:LightGray; color:black">Or permanently to the bashrc:
+</h4>
+
 ```
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
+
+</svg>

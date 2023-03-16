@@ -1,0 +1,14 @@
+numpy
+matplotlib
+scikit-image
+scikit-learn
+pandas
+scipy
+Pillow
+imutils
+tqdm
+yellowbrick
+plotly
+seaborn
+pydot
+imgaug
