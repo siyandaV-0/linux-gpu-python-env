@@ -1,7 +1,4 @@
 
-<svg width="100px" height="100px" xmlns="http://www.w3.org/2000/svg">
-
-
 <h1 style="text-align:center;background-color:DodgerBlue;"> Linux Work Environment Setup </h1>
 
 ---
@@ -728,5 +725,3 @@ $ source devel/setup.bash
 ```
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
-
-</svg>
