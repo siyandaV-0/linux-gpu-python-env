@@ -24,7 +24,7 @@ $ sudo apt-get upgrade
 $ ubuntu-drivers devices
 ```
 
-<h4 style="background-color:LightGray; color:black;" name="nvidia-driver"> Install Nvidia Drivers (2 ways, depending on your preference): </h4>
+<h4 style="background-color:LightGray; color:black;" id="nvidia-driver"> Install Nvidia Drivers (2 ways, depending on your preference): </h4>
 
 ``` 
  $ sudo ubuntu-drivers autoinstall
@@ -79,7 +79,7 @@ $ sudo reboot
 ```
 $ nvcc --version
 ```
-<h4 style="background-color:LightGray; color:black;" name="cuda_install"> OR (Option 2: Ensures the latest version of Cuda is installed):</h4>
+<h4 style="background-color:LightGray; color:black;" id="cuda_install"> OR (Option 2: Ensures the latest version of Cuda is installed):</h4>
 
 ```
 $ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
@@ -97,7 +97,7 @@ $ sudo apt-get update
 $ sudo apt-get -y install cuda
 ```
 <br>
-<h3 style="text-align:center;background-color:Aquamarine; color:black" name="cuDNN_install">Install cuDNN - CUDA Deep Learning Library </h3>
+<h3 style="text-align:center;background-color:Aquamarine; color:black" id="cuDNN_install">Install cuDNN - CUDA Deep Learning Library </h3>
 <br>
 <h4 style="background-color:LightGray; color:black;"> You have to also install the cuDNN Library from Nvidia (it's free, but you have to sign up)</h4>
 
@@ -155,7 +155,7 @@ $ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
 $ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
-<h4 style="background-color:Gold; color:black" name="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
+<h4 style="background-color:Gold; color:black" id="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
 <h4 style="background-color:LightGray; color:black;">   
 This may give you issues when using the command <code>ldconfig</code>:
 </h4>
@@ -183,7 +183,7 @@ In the case where <code>ldconfig</code> does not work, you link the <code>libcud
     $ sudo ldconfig -p | grep 'libcudnn*'
   ```
 
-<h4 style="background-color:LightGray; color:black;" name="export_env"> Export CUDA environment variables(set your path to point to CUDA binaries):
+<h4 style="background-color:LightGray; color:black;" id="export_env"> Export CUDA environment variables(set your path to point to CUDA binaries):
 <ul>
   <li>Article to understand <a href="https://opensource.com/article/17/6/set-path-linux">Setting your path</a>
 </ul>
@@ -199,12 +199,12 @@ $ echo 'export PATH=/usr/lib/cuda-12.1/include:$PATH' >> ~/.bashrc
 
 $ sudo reboot
 ```
-<h4 style="background-color:LightGray; color:black;" name="cuda_version"> Check CUDA version to confirm the installation:</h4>
+<h4 style="background-color:LightGray; color:black;" id="cuda_version"> Check CUDA version to confirm the installation:</h4>
 
 ```
 $ nvcc --version
 ```
-<h4 style="background-color:LightGray; color:black;" name="cudnn_version"> Check cuDNN:</h4>
+<h4 style="background-color:LightGray; color:black;" id="cudnn_version"> Check cuDNN:</h4>
 
 ```
 $ /sbin/ldconfig -N -v $(sed ‘s/:/ /’ <<< $LD_LIBRARY_PATH) 2>/dev/null | grep libcudnn
@@ -314,7 +314,7 @@ $ bash ~/Downloads/Anaconda3-2021.05-Linux-x86_64.sh
 <br>
 
 ---
-<h2 style="background-color:Aquamarine; color:black" name="new_env"> Creating a new working environment:
+<h2 style="background-color:Aquamarine; color:black" id="new_env"> Creating a new working environment:
  </h2> 
 
 ---
@@ -615,7 +615,7 @@ $ gedit ~/.bashrc
 <br>
 
 ---
-<h2 style="background-color:Aquamarine; color:black" name="new_env"> Uninstall the nvidia-drivers 
+<h2 style="background-color:Aquamarine; color:black" id="new_env"> Uninstall the nvidia-drivers 
  </h2> 
 
 ---
@@ -653,7 +653,7 @@ $ sudo apt-get install ubuntu-desktop
 ```
 
 ---
-<h2 style="background-color:Aquamarine; color:black" name="new_env">  Uninstall the the CUDA Toolkit 
+<h2 style="background-color:Aquamarine; color:black" id="new_env">  Uninstall the the CUDA Toolkit 
 </h2> 
 
 ---
@@ -676,7 +676,7 @@ $ sudo apt-get autoclean
 <h4 style="background-color:LightGray; color:black">
 Remove any existing CUDA folders you may have in /usr/local/
 <ul>
-<li> There shouldn’t be any folders with the name “cuda” or “cuda-anything” in usr/local/ at this point!
+<li> There shouldn’t be any folders with the id “cuda” or “cuda-anything” in usr/local/ at this point!
 <ul>
 </h4>
 
@@ -691,7 +691,7 @@ $ sudo rm -rf /usr/local/cuda*
 
 ---
 
-<h2 style="background-color:Aquamarine; color:black" name="new_env">  ROS Noetic(Ubuntu20.04)
+<h2 style="background-color:Aquamarine; color:black" id="new_env">  ROS Noetic(Ubuntu20.04)
 </h2> 
 
 ---
