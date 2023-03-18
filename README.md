@@ -109,16 +109,17 @@ $ sudo apt-get -y install cuda
 <h4 style="background-color:LightSteelBlue; color:black">1. Tar File Installation: </h4>
 
 ```
-$ tar -xvzf cudnn-12.1-linux-x64-v8.8.1.3.tgz
+$ tar -xf cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz
+$ cd cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz/
 ```
 <h5 style="background-color:LightGray; color:black;"> Move the cuDNN libraries corresponding to CUDA X.X path. </h5>
 
 ```
-$ sudo cp cuda/include/cudnn*.h /usr/local/cuda-12.1/include
+$ sudo cp include/cudnn*.h /usr/local/cuda-X.X/include
 
-$ sudo cp cuda/lib64/libcudnn* /usr/local/cuda-12.1/lib64
+$ sudo cp lib/libcudnn* /usr/local/cuda-X.X/lib64
 
-$ sudo chmod a+r /usr/local/cuda-12.1/include/cudnn.h /usr/local/cuda-12.1/lib64/libcudnn* 
+$ sudo chmod a+r /usr/local/cuda-X.X/include/cudnn.h /usr/local/cuda-X.X/lib64/libcudnn* 
 ```
 <br>
 
@@ -155,33 +156,6 @@ $ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
 $ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
-<h4 style="background-color:Gold; color:black" id="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
-<h4 style="background-color:LightGray; color:black;">   
-This may give you issues when using the command <code>ldconfig</code>:
-</h4>
-
-  ```
-    $ sudo ldconfig
-  ```
-
-
-<h4 style="background-color:LightGray; color:black;"> 
-In the case where <code>ldconfig</code> does not work, you link the <code>libcudnn*.so</code> files manually  
-<ul>
-  <li> Run the cudnn-cuda symlink bash script <code>CUDA-GPU-Config/cudnn-cuda-symlink.sh</code> onto the terminal:
-</ul>
-</h4>  
-
-  ```
-   $ bash CUDA-GPU-Config/cudnn-cuda-symlink.sh 
-  ```
-
- <h4 style="background-color:LightGray; color:black;"> Check if worked
-</h4> 
-
-  ```
-    $ sudo ldconfig -p | grep 'libcudnn*'
-  ```
 
 <h4 style="background-color:LightGray; color:black;" id="export_env"> Export CUDA environment variables(set your path to point to CUDA binaries):
 <ul>
@@ -197,8 +171,35 @@ $ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/
 
 $ echo 'export PATH=/usr/lib/cuda-12.1/include:$PATH' >> ~/.bashrc
 
-$ sudo reboot
 ```
+<h4 style="background-color:Gold; color:black" id="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
+<h4 style="background-color:LightGray; color:black;">   
+You can try to do so with the command <code style="color:blue">ldconfig</code>:
+</h4>
+
+  ```
+    $ sudo ldconfig
+
+  ```
+
+<h4 style="background-color:LightGray; color:black;"> 
+In the case where <code style="color:blue">ldconfig</code> does not work, you link the <code style="color:blue">libcudnn*.so</code> files manually  
+<ul>
+  <li> Run the cudnn-cuda symlink bash script <code style="color:blue">cuda-gpu-config/cudnn-cuda-symlink.sh</code> onto the terminal:
+</ul>
+</h4>  
+
+  ```
+   $ bash cuda-gpu-config/cudnn-cuda-symlink.sh 
+  ```
+
+<h4 style="background-color:LightGray; color:black;"> Check if worked
+</h4> 
+
+  ```
+    $ sudo ldconfig -p | grep 'libcudnn*'
+  ```
+
 <h4 style="background-color:LightGray; color:black;" id="cuda_version"> Check CUDA version to confirm the installation:</h4>
 
 ```
@@ -388,7 +389,7 @@ $ jupyter kernelspec uninstall <unwanted-kernel_name>
 </h4>
 
 ```
-$ pip3 install -r requirements.txt
+$ pip3 install -r ./requirements/requirements.txt
 ```
 
 ---
@@ -417,7 +418,7 @@ $ pip3 install torch torchvision torchaudio
 </h4>
 
 ```
-$ pip3 install -r cv-requirements.txt
+$ pip3 install -r ./requirements/cv-requirements.txt
 ```
 
 <h4 style="background-color:LightSteelBlue; color:black">OpenCV Installation: 
@@ -482,11 +483,16 @@ $ conda uninstall libtiff
 <h5 style="background-color:LightGray; color:black;"> Run the `opencv-bash-script`  which has the cli commands shown below to build opencv from source code:</h5>
 
 ```
-$ bash opencv-bash-script
+$ bash opencv.sh
 ```
 
 ![opencv-bash-script](opencv-bash-script.png)
 
+---
+
+<br>
+<br>
+<br>
 
 <h3 style="text-align:center;background-color:Aquamarine; color:black">Tensorflow V1 (For MRCNN models) Environment: </h3> 
 
@@ -554,7 +560,7 @@ $ pip3 install torch torchvision torchaudio
 </h4> 
 
 ```
-$ pip3 install -r nlp-requirements.txt 
+$ pip3 install -r ./requirements/nlp-requirements.txt 
 ```
 
 
@@ -589,6 +595,8 @@ Follow the tutorials from the  links below:
 
 <li> Follow instructions to install <a href="#cuDNN_install"> cuDNN</a> as above.
 
+- Note: You have to follow tar file installation so that your library (libcudnn*) <br> files dont conflict with library files for the main cuda you have installed.
+- The tar file installation will allow you to save your library files in the <br>respective cuda version variation folders outside of the main cuda folder(`/usr/lib/`). 
 - Link cuDNN <a href="#sym_link">library files</a>
 
 <li> Reinstall <a href="#nvidia_driver">The Latest Nvidia drivers</a> (Incase this earlier version of CUDA downgrades them)
@@ -599,16 +607,29 @@ Follow the tutorials from the  links below:
 </h4>
 
 ---
-### The process below needs to be automated:
----
-> To change the currently active version of cuda to that you need, you need to move the 
-> copied path that points to cuda binaries towards the end of the .bashrc file:
-```
-$ gedit ~/.bashrc
-```
-> The following shows 3 cuda versions with version cuda-11.4 being active: 
 
-![nvccversion](nvccversion.png)
+<h4 style="background-color:LightGray; color:black">
+BASHRC CUDA - Exporting CUDA Enviroment variables
+</h4>
+
+---
+
+ <h4 style="background-color:LightSteelBlue; color:black" >
+ <ul>
+  <li>The process of exporting cuda paths for multiple cuda versions has been automated to the <code style="color:Blue">.bashr_cuda</code> file shown below.
+  <li> This file automates the process using function and is sourced to <code style="color:Blue">~/.bashrc</code> script as <code style="color:Blue">~/.bashrc_cuda</code>.
+  <li> The paths are imported according to the active conda environment.
+  <li> For Computer Vision for CUDA Opencv Env, you use cuda 11.8/ earlier
+  <li> To activate the environment with a specific version of cuda youse th <code style="color:Blue">conda_activate</code> function
+       which is a variation of the <code style="color:Blue">conda activate</code> function
+  <li> Similarily you can deactivate the enviroment to base and set the cuda version to the base version, 
+  likely to be the version installed.
+</ul>
+</h4>
+<img src=bashrc_cuda.png></img>
+
+---
+
 
 <br>
 <br>
@@ -685,6 +706,9 @@ $ ls /usr/local/ | grep cuda
 
 $ sudo rm -rf /usr/local/cuda*
 ```
+
+---
+
 <br>
 <br>
 <br>
@@ -725,3 +749,5 @@ $ source devel/setup.bash
 ```
 $ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
+
+---

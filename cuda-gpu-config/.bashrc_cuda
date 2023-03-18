@@ -1,0 +1,50 @@
+#### >>>>> To manage Different CUDA versions between diff conda envs: >>>>>>
+
+
+# Function to set CUDA environment variables
+
+function set_cuda_env() {
+    # Get the CUDA version
+    cuda_version=$1
+
+    # Set the paths
+    export LD_LIBRARY_PATH=/usr/local/cuda-${cuda_version}/lib64:${LD_LIBRARY_PATH}
+    export PATH=/usr/local/cuda-${cuda_version}/bin:${PATH}
+    export PATH=/usr/lib/cuda-${cuda_version}/include:$PATH
+}
+
+## Activate the base environment by default
+source /home/siyanda/anaconda3/etc/profile.d/conda.sh
+
+set_cuda_env "12.1"
+
+# Set the CUDA environment variables for the base environment
+
+### Define a function to automatically set the CUDA environment variables when activating an environment
+
+function conda_auto_cuda_env() {
+    # Get the name of the active environment
+    conda_env=$(basename $CONDA_PREFIX)
+
+    # Set the CUDA environment variables based on the active environment
+    if [[ $conda_env == "cv2.GPU" ]]; then
+        set_cuda_env "11.8"
+    elif [[ $conda_env == "TFv1" ]]; then
+        set_cuda_env "10.1"
+    else
+        set_cuda_env "12.1"
+    fi
+}
+
+#### Register the conda_auto_cuda_env function to be called whenever an environment is activated
+
+conda_activate(){
+    conda activate "$@"
+    conda_auto_cuda_env
+}
+
+conda_deactivate(){
+    conda deactivate
+    conda_auto_cuda_env
+}
+### <<<<< To manage Different CUDA versions between diff conda envs: <<<<<
