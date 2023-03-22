@@ -15,7 +15,7 @@ seaborn
 pydot
 imgaug
 jupyterlab
-protobuf==3.20.0
+protobuf
 torch
 torchaudio
 torchvision

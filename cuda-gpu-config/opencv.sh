@@ -1,21 +1,18 @@
 #!/bin/bash
 
 # Set Anaconda environment name
-# ENV_NAME=cv2.GPU
+# ENV_NAME=testopencv
 # Set OpenCV version
-OPENCV_VERSION=4.5.5
+OPENCV_VERSION="4.5.5"
 # Python version 
 # PYTHON_VERSION=3.10
 
 # Set CUDA version
 CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
-# Set cuDNN version
-CUDNN_VERSION=$(ls /usr/lib/x86_64-linux-gnu/libcudnn.so.* | tail -1 | cut -d'.' -f3-5)
 
+# Set paths to CUDNN
+CUDNN_PATH="/usr/local/cuda-${CUDA_VERSION}"
 
-# Set paths to CUDA and cuDNN
-CUDA_PATH="/usr/local/cuda-${CUDA_VERSION}"
-CUDNN_PATH="/usr"
 
 # # Source Anaconda
 # source ~/anaconda3/etc/profile.d/conda.sh
@@ -24,11 +21,20 @@ CUDNN_PATH="/usr"
 # echo "Creating a new Anaconda environment: $ENV_NAME"
 # conda create -y -n ${ENV_NAME} python=${PYTHON_VERSION}
 # echo "Anaconda environment created successfully." 
-# source activate ${ENV_NAME} 
+# conda activate ${ENV_NAME} 
 # echo "Anaconda environment activated successfully."
+
+# Upgrade gcc compiler
+# conda install -c conda-forge libstdcxx-ng
+
 
 # # Install required env packages for Computer Vision
 # pip3 install -r requirements/cv-requirements.txt
+
+# If opencv exist within environment, remove it
+pip3 uninstall opencv-python
+pip3 uninstall opencv-contrib-python
+pip3 uninstall opencv-headless-python
 
 
 # Clone opencv and opencv-contrib repositories
@@ -57,14 +63,14 @@ cmake \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D WITH_CUDNN=ON \
-    -D CUDNN_LIBRARY=${CUDA_PATH}/lib/x86_64-linux-gnu/libcudnn.so \
+    -D CUDNN_LIBRARY=${CUDNN_PATH}/lib64 \
     -D CUDNN_INCLUDE_DIR=${CUDNN_PATH}/include \
     -D PYTHON_DEFAULT_EXECUTABLE=$(which python) \
     -D PYTHON_INCLUDE_DIR=$(python -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())") \
     -D PYTHON_LIBRARY=$(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
     -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python -c "import numpy; print(numpy.get_include())") \
     -D BUILD_TIFF=ON \
-	-D BUILD_EXAMPLES=ON \
+    -D BUILD_EXAMPLES=ON \
     ..
 
 # Build and install OpenCV
@@ -72,13 +78,18 @@ make -j$(nproc)
 sudo make install
 sudo ldconfig
 
+cd ../../
 
 # Cleanup
-rm -rf opencv
-rm -rf opecnv-contrib
+rm -rf opencv && rm -rf opecnv-contrib
 
+
+# To extract the version numbers from Python version returned by python --version
+python_version=$(python -V 2>&1)
+ver_digits=$(echo "${python_version}" | awk '{print $2}' | awk -F'.' '{print $1$2}')
+ver_dot_digits=$(echo "${python_version}" | awk '{print $2}' | awk -F'.' '{print $1"."$2}')
 
 # May have to link the following maunually
-cd ${CONDA_PREFIX}/lib/python3.10/site-packages/cv2/python-3.10
-sudo ln -s cv2.cpython-39-x86_64-linux-gnu.so cv2.so
+cd ${CONDA_PREFIX}/lib/python${ver_dot_digits}/site-packages/cv2/python-${ver_dot_digits}
+sudo ln -sf cv2.cpython-${ver_digits}-x86_64-linux-gnu.so cv2.so
 
