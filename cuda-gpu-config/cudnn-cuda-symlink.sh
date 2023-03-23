@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 CUDA_VERSION="$1"
 
 if [[ -z "$CUDA_VERSION" ]]; then
