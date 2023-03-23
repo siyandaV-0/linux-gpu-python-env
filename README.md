@@ -190,7 +190,8 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 </h4>  
 
   ```
-   $ bash cuda-gpu-config/cudnn-cuda-symlink.sh 
+   $ bash cuda-gpu-config/cudnn-cuda-symlink.sh <cuda-version-number> 
+   ## e.g. bash cuda-gpu-config/cudnn-cuda-symlink.sh 11.8  
   ```
 
 <h4 style="background-color:LightGray; color:black;"> Check if worked

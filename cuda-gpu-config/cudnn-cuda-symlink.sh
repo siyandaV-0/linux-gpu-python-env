@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 CUDA_VERSION="$1"
 
 if [[ -z "$CUDA_VERSION" ]]; then
@@ -13,18 +14,28 @@ if [ ! -d "/usr/local/cuda-${CUDA_VERSION}/lib64" ]; then
     exit 1
 fi
 
-CUDNN_LIB="/usr/local/cuda-${CUDA_VERSION}/lib64"
+CUDNN_PATH="/usr/local/cuda-${CUDA_VERSION}/lib64"
 
-for file in ${CUDNN_LIB}/libcudnn*.so*; do
-  if [ -f "$file" ]; then
-    link_name=$(echo "$file" | sed -E "s/(libcudnn[^.]+)\.so\..*/\1.so/")
-    if [ ! -f "${link_name}" ]; then
-      echo "Creating link for $file"
-      sudo ln -sf "$file" "${link_name}"
-    fi
-  elif [ -L "$file" ]; then
-    echo "Symbolic link already exists for $file"
-  fi
+cd ${CUDNN_PATH}
+
+# Define the base name of the library files
+LIBRARY_BASENAME="libcudnn"
+
+# Find the latest version of libcudnn
+LATEST_LIBCUDNN=$(ls -1 ${LIBRARY_BASENAME}*.so.*.*.* | sort -V | tail -n1)
+
+# Extract the version number from the file name
+LIBCUDNN_VERSION=$(echo ${LATEST_LIBCUDNN} | sed -E "s/.*\.so\.([0-9]+\.[0-9]+\.[0-9]+)/\1/")
+
+# Create an array of library files
+LIBRARY_FILES=($(ls -1 ${LIBRARY_BASENAME}*.so.*.*.*))
+
+# Create the symbolic links
+for library_file in "${LIBRARY_FILES[@]}"; do
+  # Extract the library name from the file name
+  library_name=$(echo ${library_file} | sed -E "s/(.*\.so)\.${LIBCUDNN_VERSION}.*/\1/")
+  sudo ln -sf "${library_name}.${LIBCUDNN_VERSION}" "${library_name}.${LIBCUDNN_VERSION%%.*}"
+  sudo ln -sf "${library_name}.${LIBCUDNN_VERSION%%.*}" "${library_name}"
 done
 
 echo "Done."

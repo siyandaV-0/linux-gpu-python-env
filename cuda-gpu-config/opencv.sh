@@ -1,40 +1,20 @@
 #!/bin/bash
 
-# Set Anaconda environment name
-# ENV_NAME=testopencv
 # Set OpenCV version
 OPENCV_VERSION="4.5.5"
-# Python version 
-# PYTHON_VERSION=3.10
 
-# Set CUDA version
-CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
-
-# Set paths to CUDNN
-CUDNN_PATH="/usr/local/cuda-${CUDA_VERSION}"
-
-
-# # Source Anaconda
-# source ~/anaconda3/etc/profile.d/conda.sh
-
-# # Create a new Anaconda environment and activate it
-# echo "Creating a new Anaconda environment: $ENV_NAME"
-# conda create -y -n ${ENV_NAME} python=${PYTHON_VERSION}
-# echo "Anaconda environment created successfully." 
-# conda activate ${ENV_NAME} 
-# echo "Anaconda environment activated successfully."
-
-# Upgrade gcc compiler
 # conda install -c conda-forge libstdcxx-ng
-
-
-# # Install required env packages for Computer Vision
-# pip3 install -r requirements/cv-requirements.txt
 
 # If opencv exist within environment, remove it
 pip3 uninstall opencv-python
 pip3 uninstall opencv-contrib-python
 pip3 uninstall opencv-headless-python
+
+
+# Set CUDA version to that corresponding to our env cv2-gpu
+CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
+# Set paths to CUDNN
+CUDNN_PATH="/usr/local/cuda-${CUDA_VERSION}"
 
 
 # Clone opencv and opencv-contrib repositories
