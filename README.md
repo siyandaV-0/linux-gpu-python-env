@@ -12,39 +12,39 @@
 <h4 style="background-color:LightGray; color:black;"> First update your system: </h4>
 
 ```shell
-\$ sudo apt-get update 
-\$ sudo apt-get upgrade
+ sudo apt-get update 
+ sudo apt-get upgrade
 ```
 
 
-<h4 style="background-color:LightGray; color:black;"> Show available drivers: </h4>
+<h4 style="background-color:LightGray; color:black;"> shellow available drivers: </h4>
  
 ```shell
-\$ ubuntu-drivers devices
+ ubuntu-drivers devices
 ```
 
 <h4 style="background-color:LightGray; color:black;" id="nvidia-driver"> Install Nvidia Drivers (2 ways, depending on your preference): </h4>
 
 ```shell
-\$ sudo ubuntu-drivers autoinstall
+ sudo ubuntu-drivers autoinstall
 ```
 
 <h4 style="background-color:LightGray; color:black;"> OR (Preferable Option)</h4>
 
 ```shell
-\$ sudo apt install nvidia-driver -< latest version available for your pc>
+ sudo apt install nvidia-driver -< latest version available for your pc>
 ```
 <h4 style="background-color:LightGray; color:black;"> e.g.: sudo apt install nvidia-driver-460 </h4>
 <br>
 
 ```shell
-\$ sudo reboot
+ sudo reboot
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Detect if there nvidia drivers are installed: </h4>
 
 ```shell
-\$ nvidia-smi
+ nvidia-smi
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Example output if they are installed correctly:</h4>
@@ -55,11 +55,11 @@
 <h4 style="background-color:LightGray; color:black;"> Change your drivers (most-likely from) on-demand to now installed nvidia: </h4>
 
 ```shell
-\$ sudo prime-select query
+ sudo prime-select query
 
-\$ sudo prime-select nvidia
+ sudo prime-select nvidia
 
-\$ sudo prime-select query
+ sudo prime-select query
 ```
 <br>
 <h3 style="text-align:center;background-color:Aquamarine; color:black"> Install CUDA toolkit (2 ways, depending on your preference) </h3>
@@ -67,33 +67,33 @@
 <h4 style="background-color:LightGray; color:black;"> First update your system: </h4>
 
 ```shell
-\$ sudo apt update
+ sudo apt update
 
-\$ sudo apt install nvidia-cuda-toolkit
+ sudo apt install nvidia-cuda-toolkit
 
-\$ sudo reboot
+ sudo reboot
 ```
 <h4 style="background-color:LightGray; color:black;"> Check CUDA version to confirm the installation:</h4>
 
 ```shell
-\$ nvcc --version
+ nvcc --version
 ```
 <h4 style="background-color:LightGray; color:black;" id="cuda_install"> OR (Option 2: Ensures the latest version of Cuda is installed):</h4>
 
 ```shell
-\$ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
 
-\$ sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+ sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
 
-\$ wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
+ wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
 
-\$ sudo dpkg -i cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
+ sudo dpkg -i cuda-repo-ubuntu2204-12-1-local_12.1.0-530.30.02-1_amd64.deb
 
-\$ sudo cp /var/cuda-repo-ubuntu2204-12-1-local/cuda-*-keyring.gpg /usr/share/keyrings/
+ sudo cp /var/cuda-repo-ubuntu2204-12-1-local/cuda-*-keyring.gpg /usr/shellare/keyrings/
 
-\$ sudo apt-get update
+ sudo apt-get update
 
-\$ sudo apt-get -y install cuda
+ sudo apt-get -y install cuda
 ```
 
 <br>
@@ -109,17 +109,17 @@
 <h4 style="background-color:LightSteelBlue; color:black">1. Tar File Installation: </h4>
 
 ```shell
-\$ tar -xf cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz
-\$ cd cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz/
+ tar -xf cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz
+ cd cudnn-X.X-linux-x86_64-vX.X.X.X.tgz.xz/
 ```
 <h5 style="background-color:LightGray; color:black;"> Move the cuDNN libraries corresponding to CUDA X.X path. </h5>
 
 ```shell
-\$ sudo cp include/cudnn*.h /usr/local/cuda-X.X/include
+ sudo cp include/cudnn*.h /usr/local/cuda-X.X/include
 
-\$ sudo cp lib/libcudnn* /usr/local/cuda-X.X/lib64
+ sudo cp lib/libcudnn* /usr/local/cuda-X.X/lib64
 
-\$ sudo chmod a+r /usr/local/cuda-X.X/include/cudnn.h /usr/local/cuda-X.X/lib64/libcudnn* 
+ sudo chmod a+r /usr/local/cuda-X.X/include/cudnn.h /usr/local/cuda-X.X/lib64/libcudnn* 
 ```
 <br>
 
@@ -128,33 +128,33 @@
 <h5 style="background-color:LightGray; color:black;"> Download the Debian local repository installation package. Before issuing the following commands, you must replace X.Y and 8.x.x.x with your specific CUDA and cuDNN versions. </h5>
 
 ```shell
-\$ sudo dpkg -i cudnn-local-repo-\${OS}-8.x.x.x_1.0-1_amd64.deb
+ sudo dpkg -i cudnn-local-repo-{OS}-8.x.x.x_1.0-1_amd64.deb
 ```
 
 <h5 style="background-color:LightGray; color:black;"> Import the CUDA GPG key.</h5>
 
 ```shell
-\$ sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
+ sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/shellare/keyrings/
 ```
-<h5 style="background-color:LightGray; color:black;"> Refresh the repository metadata.</h5>
+<h5 style="background-color:LightGray; color:black;"> Refreshell the repository metadata.</h5>
 
 ```shell
-\$ sudo apt-get update
+ sudo apt-get update
 ```
 <h5 style="background-color:LightGray; color:black;">  Install the runtime library.</h5>
 
 ```shell
-\$ sudo gdebi libcudnn8_8.x.x.x-1+cudaX.Y_amd64.deb
+ sudo gdebi libcudnn8_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
 <h5 style="background-color:LightGray; color:black;">  Install the developer library.</h5>
  
 ```shell
-\$ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb 
+ sudo gdebi install libcudnn8-dev_8.x.x.x-1+cudaX.Y_amd64.deb 
 ```
 <h5 style="background-color:LightGray; color:black;">   Install the code samples and the cuDNN library documentation.</h5>
 
 ```shell
-\$ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
+ sudo gdebi libcudnn8-samples_8.x.x.x-1+cudaX.Y_amd64.deb
 ```
 
 <h4 style="background-color:LightGray; color:black;" id="export_env"> Export CUDA environment variables(set your path to point to CUDA binaries):
@@ -165,11 +165,11 @@
 
 
 ```shell
-\$ echo 'export PATH=/usr/local/cuda-12.1/bin\${PATH:+:\${PATH}}' >> ~/.bashrc
+ echo 'export PATH=/usr/local/cuda-12.1/bin{PATH:+:{PATH}}' >> ~/.bashellrc
 
-\$ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/usr/local/cuda-12.1/lib64\${LD_LIBRARY_PATH:+:\${LD_LIBRARY_PATH}}"' >> ~/.bashrc
+ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/usr/local/cuda-12.1/lib64{LD_LIBRARY_PATH:+:{LD_LIBRARY_PATH}}"' >> ~/.bashellrc
 
-\$ echo 'export PATH=/usr/lib/cuda-12.1/include:\$PATH' >> ~/.bashrc
+ echo 'export PATH=/usr/lib/cuda-12.1/include:PATH' >> ~/.bashellrc
 ```
 <h4 style="background-color:Gold; color:black" id="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
 <h4 style="background-color:LightGray; color:black;">   
@@ -177,38 +177,38 @@ You can try to do so with the command <code style="color:blue">ldconfig</code>:
 </h4>
 
 ```shell 
-\$ sudo ldconfig
+ sudo ldconfig
 ```
 
 
 <h4 style="background-color:LightGray; color:black;"> 
 In the case where <code style="color:blue">ldconfig</code> does not work, you link the <code style="color:blue">libcudnn*.so</code> files manually  
 <ul>
-  <li> Run the cudnn-cuda symlink bash script <code style="color:blue">cuda-gpu-config/cudnn-cuda-symlink.sh</code> onto the terminal:
+  <li> Run the cudnn-cuda symlink bashell script <code style="color:blue">cuda-gpu-config/cudnn-cuda-symlink.shell</code> onto the terminal:
 </ul>
 </h4>  
 
 ```shell
-\$ bash cuda-gpu-config/cudnn-cuda-symlink.sh <cuda-version-number> 
-# e.g. bash cuda-gpu-config/cudnn-cuda-symlink.sh 11.8  
+ bashell cuda-gpu-config/cudnn-cuda-symlink.shell <cuda-version-number> 
+# e.g. bashell cuda-gpu-config/cudnn-cuda-symlink.shell 11.8  
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Check if worked
 </h4> 
 
 ```shell
-\$ sudo ldconfig -p | grep 'libcudnn*'
+ sudo ldconfig -p | grep 'libcudnn*'
 ```
 
 <h4 style="background-color:LightGray; color:black;" id="cuda_version"> Check CUDA version to confirm the installation:</h4>
 
 ```shell
-\$ nvcc --version
+ nvcc --version
 ```
 <h4 style="background-color:LightGray; color:black;" id="cudnn_version"> Check cuDNN:</h4>
 
 ```shell
-\$ /sbin/ldconfig -N -v \$(sed ‘s/:/ /’ <<< \$LD_LIBRARY_PATH) 2>/dev/null | grep libcudnn
+ /sbin/ldconfig -N -v (sed ‘s/:/ /’ <<< LD_LIBRARY_PATH) 2>/dev/null | grep libcudnn
 ```
 ---
 
@@ -225,17 +225,17 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 </h4>
 
 ```shell
-\$ sudo apt install git
+ sudo apt install git
 
-\$ sudo reboot
+ sudo reboot
 
-\$ git config --list
+ git config --list
 
-\$ git config --global user.name "John Doe"
+ git config --global user.name "John Doe"
 
-\$ git config --global user.email johndoe@example.com
+ git config --global user.email johndoe@example.com
 
-\$ git config --global core.editor gedit 
+ git config --global core.editor gedit 
 ```
 
 <h4 style="background-color:LightGray; color:black;"> 
@@ -244,16 +244,16 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
   </ul>
 </h4>
 <br>
-<h4 style="background-color:LightGray; color:black;">Link your local and remote repository using the SSH key on Gitlab:
+<h4 style="background-color:LightGray; color:black;">Link your local and remote repository using the Sshell key on Gitlab:
 </h4>
 
 ```shell
-\$ ssh-keygen 
+ sshell-keygen 
 ```
 <h4 style="background-color:LightGray; color:black;"> 
   <ul>
-    <li> The public ssh key is the .ssh/id_rsa.pub file in the .ssh hidden folder.
-    <li> Copy this and paste it under preferences > ssh keys > add ssh key on gitlab.
+    <li> The public sshell key is the .sshell/id_rsa.pub file in the .sshell hidden folder.
+    <li> Copy this and paste it under preferences > sshell keys > add sshell key on gitlab.
   </ul>
 </h4> 
 
@@ -271,9 +271,9 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h3 style="text-align:center;background-color:Aquamarine; color:black">Install Python3: </h3>
 
 ```shell
-\$ sudo apt install python3-pip
+ sudo apt install python3-pip
 
-\$ pip3 --version
+ pip3 --version
 ```
 <h3 style="text-align:center;background-color:Aquamarine; color:black"> Install Anaconda </h3>
 <h4 style="background-color:LightGray; color:black;"> Follow the steps in this <a href="(https://docs.anaconda.com/anaconda/install/linux/)"> link</a>
@@ -282,19 +282,19 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;">Pre-recquisite (To use GUI packages with Linux,): </h4>
 
 ```shell
-\$ sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+ sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 ```
 <h4 style="background-color:LightGray; color:black;">
  After Downloading the <a href="https://docs.anaconda.com/anaconda/install/linux/#:~:text=Anaconda%20installer%20for%20Linux">Anaconda installer for linux.</a> </h4>
 <br>
-<h4 style="background-color:LightGray; color:black;">  RECOMMENDED: Verify data integrity with <a href="https://docs.anaconda.com/anaconda/install/hashes/">SHA-256</a>. For more information on hashes, see What about cryptographic <a href="https://conda.io/projects/conda/en/latest/user-guide/install/download.html#cryptographic-hash-verification">hash verification</a></h4>
+<h4 style="background-color:LightGray; color:black;">  RECOMMENDED: Verify data integrity with <a href="https://docs.anaconda.com/anaconda/install/hashelles/">shellA-256</a>. For more information on hashelles, see What about cryptographic <a href="https://conda.io/projects/conda/en/latest/user-guide/install/download.html#cryptographic-hashell-verification">hashell verification</a></h4>
 
 ```shell
-\$ sha256sum /path/filename 
+ shella256sum /path/filename 
 ```
 
  
-<h4 style="background-color:LightGray; color:black;"> e.g. sha256sum Downloads/Anaconda3-2021.05-Linux-x86_64.sh if the anaconda installer was placed in the downloads path.
+<h4 style="background-color:LightGray; color:black;"> e.g. shella256sum Downloads/Anaconda3-2021.05-Linux-x86_64.shell if the anaconda installer was placed in the downloads path.
 </h4>
 
 <br>
@@ -302,7 +302,7 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;">  Enter the following to install Anaconda for Python 3.7 or later:</h4>
 
 ```shell
-\$ bash ~/Downloads/Anaconda3-2021.05-Linux-x86_64.sh
+ bashell ~/Downloads/Anaconda3-2021.05-Linux-x86_64.shell
 ```
 <h4 style="background-color:LightGray; color:black;"> 
  Follow the steps on the provided link in the beginning (from step 4 - 10): </h4>
@@ -323,29 +323,29 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;"> Create Separate Environments (Make sure to clone the base to get a copy of its packages):</h4>
 
 ```shell
-\$ conda create -n DataScience --clone base
+ conda create -n DataScience --clone base
 
-\$ conda env list
+ conda env list
 
-\$ conda create -n ComputerVision --clone base
+ conda create -n ComputerVision --clone base
 
-\$ conda env list
+ conda env list
 ```
 
 
 <h4 style="background-color:LightGray; color:black;">  To activate an environment:</h4> 
 
 ```shell
-\$ conda activate ComputerVision
+ conda activate ComputerVision
 ```
 
 
 <h4 style="background-color:LightGray; color:black;"> If you need to remove an environment: </h4>
 
 ```shell
-\$ conda deactivate
+ conda deactivate
 
-\$ conda env remove -n ComputerVision
+ conda env remove -n ComputerVision
 ```
 
 <h4 style="background-color:LightGray; color:black;">  To create a new environment with a different/downgraded version of python 
@@ -359,9 +359,9 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;"> '=' -> latest version, '==' -> exact version </h4> 
 
 ```shell
-\$ conda create -n <new_env_name> python=3.<version> anaconda  
+ conda create -n <new_env_name> python=3.<version> anaconda  
 
-\$ conda activate <new_env_name>
+ conda activate <new_env_name>
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Creating a custom kernel with a name: </h4> 
@@ -369,7 +369,7 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;"> Once your environment is setup, it can be added as a kernel to Jupyter-Lab/Notebook by: </h4>  
 
 ```shell
-\$ python -m ipykernel install --user --name <env_name> --display-name 'Python(<env_name>)'
+ python -m ipykernel install --user --name <env_name> --display-name 'Python(<env_name>)'
 ```
 <h4 style="background-color:LightGray; color:black;">  Once the kernerl is installed you may switch back to base. </h4> 
 <br>
@@ -377,9 +377,9 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 </h4> 
 
 ```shell
-\$ jupyter kernelspec list
+ jupyter kernelspec list
 
-\$ jupyter kernelspec uninstall <unwanted-kernel_name>
+ jupyter kernelspec uninstall <unwanted-kernel_name>
 ```
 
 
@@ -387,7 +387,7 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 </h4>
 
 ```shell
-\$ pip3 install -r ./requirements/requirements.txt
+ pip3 install -r ./requirements/requirements.txt
 ```
 
 ---
@@ -404,19 +404,19 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightSteelBlue; color:black">Tensorflow Installation: </h4> 
 
 ```shell
-\$ pip3 install tensorflow
+ pip3 install tensorflow
 ```
 
 <h4 style="background-color:LightSteelBlue; color:black">Pytorch Installation: </h4> 
 
 ```shell
-\$ pip3 install torch torchvision torchaudio
+ pip3 install torch torchvision torchaudio
 ```
 <h4 style="background-color:LightSteelBlue; color:black"> Install other basic cv packages:
 </h4>
 
 ```shell
-\$ pip3 install -r ./requirements/cv-requirements.txt
+ pip3 install -r ./requirements/cv-requirements.txt
 ```
 
 <h4 style="background-color:LightSteelBlue; color:black">OpenCV Installation: 
@@ -426,23 +426,23 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h5 style="background-color:LightGray; color:black;"> OpenCV apt package dependencies: </h5> 
 
 ```shell
-\$ sudo apt-get update
+ sudo apt-get update
 
-\$ sudo apt-get upgrade
+ sudo apt-get upgrade
 
-\$ sudo apt-get install build-essential cmake unzip pkg-config
+ sudo apt-get install build-essential cmake unzip pkg-config
 
-\$ sudo apt-get install libjpeg-dev libpng-dev libtiff-dev
+ sudo apt-get install libjpeg-dev libpng-dev libtiff-dev
 
-\$ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
 
-\$ sudo apt-get install libv4l-dev libxvidcore-dev libx264-dev
+ sudo apt-get install libv4l-dev libxvidcore-dev libx264-dev
 
-\$ sudo apt-get install libgtk-3-dev
+ sudo apt-get install libgtk-3-dev
 
-\$ sudo apt-get install libatlas-base-dev gfortran
+ sudo apt-get install libatlas-base-dev gfortran
 
-\$ \$ sudo apt install libopencv-dev
+  sudo apt install libopencv-dev
 ```
 <h5 style="background-color:LightGray; color:black;"> Make sure you install libopencv-dev to avoid alot of errors <a href="https://stackoverflow.com/questions/45450706/whats-the-difference-with-opencv-python-opencv-and-libopencv">read here</a> what the difference between opencv, opencv-contrib & libopencv-dev is all about.
 </h5>  
@@ -452,9 +452,9 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h5 style="text-align:center;background-color:LightGray; color:black;font-size: 15px;"> Binary OpenCV </h5>
 
 ```shell
-\$ pip3 install opencv-python==4.5.2.54 
+ pip3 install opencv-python==4.5.2.54 
 
-\$ pip3 install opencv-contrib-python==4.5.2.54
+ pip3 install opencv-contrib-python==4.5.2.54
 ```
 
 <h5 style="background-color:LightGray; color:black;"> As of this document, later versions of opencv (4.5.3+) generate errors so choose the above version. </h5> 
@@ -475,15 +475,15 @@ OPENCV With GPU Support from Source Code
 </h5>
 
 ```shell
-\$ conda uninstall libtiff
+ conda uninstall libtiff
 ```
-<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bash-script`  which has the cli commands shown below to build opencv from source code:</h5>
+<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bashell-script`  which has the cli commands shellown below to build opencv from source code:</h5>
 
 ```shell
-\$ bash cuda-gpu-gpu/opencv.sh
+ bashell cuda-gpu-gpu/opencv.shell
 ```
 
-![opencv-bash-script](opencv-bash-script.png)
+![opencv-bashell-script](opencv-bash-script.png)
 
 ---
 
@@ -513,30 +513,30 @@ Create <a href=#new_env> tensorflow v1 anaconda env </a>
 <h4 style="background-color:LightGray; color:black;"> keras version 2.0.8:</h4>
 
 ```shell
-\$ pip3 install keras==2.0.8
+ pip3 install keras==2.0.8
 ```
 <h4 style="background-color:LightGray; color:black;"> tensorflow version 1.8 or earlier:</h4>
 
 ```shell
-\$ pip3 install tensorflow-gpu==1.8.0
+ pip3 install tensorflow-gpu==1.8.0
 ```
 <h4 style="background-color:LightGray; color:black;"> version mrcnn 0.1:</h4>
 
 ```shell
-\$ pip3 install mrcnn==0.1
+ pip3 install mrcnn==0.1
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Packages required for MRCNN model:
 </h4>
 
 ```shell
-\$ pip3 install scikit-image
+ pip3 install scikit-image
 
-\$ pip3 install imgaug
+ pip3 install imgaug
 
-\$ pip3 install pycocotools
+ pip3 install pycocotools
 
-\$ pip3 install h5py==2.10.0 
+ pip3 install h5py==2.10.0 
 ```
 
 <h3 style="text-align:center;background-color:Aquamarine; color:black">Natural Language Processing Enviroment : </h3> 
@@ -545,19 +545,19 @@ Create <a href=#new_env> tensorflow v1 anaconda env </a>
 <h4 style="background-color:LightSteelBlue; color:black">Tensorflow Installation: </h4> 
 
 ```shell
-\$ pip3 install tensorflow
+ pip3 install tensorflow
 ```
 <h4 style="background-color:LightSteelBlue; color:black">Pytorch Installation: </h4> 
 
 ```shell
-\$ pip3 install torch torchvision torchaudio
+ pip3 install torch torchvision torchaudio
 ```
 
 <h4 style="background-color:LightSteelBlue; color:black"> Basic packages   
 </h4> 
 
 ```shell
-\$ pip3 install -r ./requirements/nlp-requirements.txt 
+ pip3 install -r ./requirements/nlp-requirements.txt 
 ```
 
 
@@ -571,7 +571,7 @@ Create <a href=#new_env> tensorflow v1 anaconda env </a>
 Follow the tutorials from the  links below:
 <ul>
   <li> <a href="https://towardsdatascience.com/installing-multiple-cuda-cudnn-versions-in-ubuntu-fcb6aa5194e2"> Link 1</a> 
-  <li> <a href="https://medium.com/thecyphy/multi-version-cuda-and-tensorflow-gpu-on-ubuntu-18-04-lts-22cfcd32f06a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkOTI5YzYzZmYxMDgyYmJiOGM5OWY5OTRmYTNmZjRhZGFkYTJkMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MzI4NzIzOTQsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMzg1NzEyMTAxNzMxOTkwOTU1MSIsImVtYWlsIjoic25nY29ibzQ5QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiU2l5YW5kYSBTJ3BoZXNpaGxlIE5nY29ibyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaDhiV3ZHWEFzYnpCOXBzTjJEd1FoeEZ5ODdFQnN5aWpXRkZaU21NZz1zOTYtYyIsImdpdmVuX25hbWUiOiJTaXlhbmRhIFMncGhlc2lobGUiLCJmYW1pbHlfbmFtZSI6Ik5nY29ibyIsImlhdCI6MTYzMjg3MjY5NCwiZXhwIjoxNjMyODc2Mjk0LCJqdGkiOiIzYmRlODM1YzU0ZTk4NDU1ZDA5ZTY0MTBhZDBhYTBlM2YwMmU1ZTEzIn0.LRclEv-LjyY8HHMGR8IX3uQ438ZbJzM_RSnCFQMJV4q6Wg8sJsfT0__FxAPxQJ-5D8o574FgWyqpaAq2NZrB-9FMDHxiPsSnBR78Ftx9djBJVSn2XwipFZRFQ_2DdWGUycALurMqrIuHpssh2L2_s0O_ScYG36lY5sKM-WujpU06wejbyrbhn_k47YY67SoABuVkkdGU4oWBDp2n-UaxZ58mDdrSKLWoOkbokdUbm9f378wSnJd-6F0E0zaDWxC0u-MHMOPjyj2peDlGg7DCNkYlJpx_0NfKYYR9J_YtvJy0wXDxtHQbxM1cgL8VtNVCoYMNH05CqJS4GDzFIzAkEQ">Link 2</a>    
+  <li> <a href="https://medium.com/thecyphy/multi-version-cuda-and-tensorflow-gpu-on-ubuntu-18-04-lts-22cfcd32f06a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjhkOTI5YzYzZmYxMDgyYmJiOGM5OWY5OTRmYTNmZjRhZGFkYTJkMTEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MzI4NzIzOTQsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExMzg1NzEyMTAxNzMxOTkwOTU1MSIsImVtYWlsIjoic25nY29ibzQ5QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJuYW1lIjoiU2l5YW5kYSBTJ3BoZXNpaGxlIE5nY29ibyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaDhiV3ZHWEFzYnpCOXBzTjJEd1FoeEZ5ODdFQnN5aWpXRkZaU21NZz1zOTYtYyIsImdpdmVuX25hbWUiOiJTaXlhbmRhIFMncGhlc2lobGUiLCJmYW1pbHlfbmFtZSI6Ik5nY29ibyIsImlhdCI6MTYzMjg3MjY5NCwiZXhwIjoxNjMyODc2Mjk0LCJqdGkiOiIzYmRlODM1YzU0ZTk4NDU1ZDA5ZTY0MTBhZDBhYTBlM2YwMmU1ZTEzIn0.LRclEv-LjyY8HHMGR8IX3uQ438ZbJzM_RSnCFQMJV4q6Wg8sJsfT0__FxAPxQJ-5D8o574FgWyqpaAq2NZrB-9FMDHxiPsSnBR78Ftx9djBJVSn2XwipFZRFQ_2DdWGUycALurMqrIuHpsshell2L2_s0O_ScYG36lY5sKM-WujpU06wejbyrbhn_k47YY67SoABuVkkdGU4oWBDp2n-UaxZ58mDdrSKLWoOkbokdUbm9f378wSnJd-6F0E0zaDWxC0u-MHMOPjyj2peDlGg7DCNkYlJpx_0NfKYYR9J_YtvJy0wXDxtHQbxM1cgL8VtNVCoYMNH05CqJS4GDzFIzAkEQ">Link 2</a>    
 </ul>
 </h4> 
 <br>
@@ -606,15 +606,15 @@ Follow the tutorials from the  links below:
 ---
 
 <h4 style="background-color:LightGray; color:black">
-BASHRC CUDA - Exporting CUDA Enviroment variables
+BAshellRC CUDA - Exporting CUDA Enviroment variables
 </h4>
 
 ---
 
  <h4 style="background-color:LightSteelBlue; color:black" >
  <ul>
-  <li>The process of exporting cuda paths for multiple cuda versions has been automated to the <code style="color:Blue">.bashr_cuda</code> file shown below.
-  <li> This file automates the process using function and is sourced to <code style="color:Blue">~/.bashrc</code> script as <code style="color:Blue">~/.bashrc_cuda</code>.
+  <li>The process of exporting cuda paths for multiple cuda versions has been automated to the <code style="color:Blue">.bashellr_cuda</code> file shellown below.
+  <li> This file automates the process using function and is sourced to <code style="color:Blue">~/.bashellrc</code> script as <code style="color:Blue">~/.bashellrc_cuda</code>.
   <li> The paths are imported according to the active conda environment.
   <li> For Computer Vision for CUDA Opencv Env, you use cuda 11.8/ earlier
   <li> To activate the environment with a specific version of cuda youse th <code style="color:Blue">conda_activate</code> function
@@ -641,33 +641,33 @@ BASHRC CUDA - Exporting CUDA Enviroment variables
 <h4 style="background-color:LightGray; color:black">
 If your drivers get corrupted or there's a miss-match between drivers and libraries</h4>
 <br>
-<h4 style="background-color:LightGray; color:black">The following command shows all available packages that are related to nvidia: 
+<h4 style="background-color:LightGray; color:black">The following command shellows all available packages that are related to nvidia: 
 </h4>
 
 ```shell
-\$ dpkg -l | grep -i nvidia
+ dpkg -l | grep -i nvidia
 ```
 <h4 style="background-color:LightGray; color:black"> This command below removes all of the nvidia-packages:
 </h4>
 
 ```shell
-\$ sudo apt-get remove --purge '^nvidia-.*' 
+ sudo apt-get remove --purge '^nvidia-.*' 
 ```
 <h4 style="background-color:LightGray; color:black"> Incase the above command doesnt work try the one below:
 </h4>
 
 ```shell
-\$ sudo dpkg -P \$(dpkg -l | grep nvidia | awk '{print \$2}')
+ sudo dpkg -P (dpkg -l | grep nvidia | awk '{print 2}')
 ```
 <h4 style="background-color:LightGray; color:black"> Purge any remaining NVIDIA configuration files and the associated dependencies that they may have been installed with:
 </h4>
 
 ```shell
-\$ sudo apt autoremove
+ sudo apt autoremove
 
-\$ sudo apt autoclean
+ sudo apt autoclean
 
-\$ sudo apt-get install ubuntu-desktop
+ sudo apt-get install ubuntu-desktop
 ```
 
 ---
@@ -680,28 +680,28 @@ If your drivers get corrupted or there's a miss-match between drivers and librar
 </h4>
  
 ```shell
-\$ sudo apt remove --autoremove nvidia-cuda-toolkit
+ sudo apt remove --autoremove nvidia-cuda-toolkit
 
-\$ sudo apt-get --purge -y remove 'cuda*'
+ sudo apt-get --purge -y remove 'cuda*'
 ```
 <h4 style="background-color:LightGray; color:black"> Purge any remaining CUDA configuration files and the associated dependencies that they may have been installed with:</h4> 
 
 ```shell
-\$ sudo apt-get autoremove
+ sudo apt-get autoremove
 
-\$ sudo apt-get autoclean
+ sudo apt-get autoclean
 ```
 <h4 style="background-color:LightGray; color:black">
 Remove any existing CUDA folders you may have in /usr/local/
 <ul>
-<li> There shouldn’t be any folders with the id “cuda” or “cuda-anything” in usr/local/ at this point!
+<li> There shellouldn’t be any folders with the id “cuda” or “cuda-anything” in usr/local/ at this point!
 <ul>
 </h4>
 
 ```shell
-\$ ls /usr/local/ | grep cuda
+ ls /usr/local/ | grep cuda
 
-\$ sudo rm -rf /usr/local/cuda*
+ sudo rm -rf /usr/local/cuda*
 ```
 
 ---
@@ -729,22 +729,22 @@ Creating a ROS Work Space:
 </h4>
 
 ```shell
-\$ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
+ catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python3
 ```
 <h4 style="background-color:LightSkyBlue; color:black"> This will configure catkin_make with Python 3. You may then proceed to use just catkin_make for <br>subsequent builds.
 </h4>
 <br>
-<h4 style="background-color:LightGray; color:black"> Source new setup file on devel folder in the catkin workspace (setup.bash) :
+<h4 style="background-color:LightGray; color:black"> Source new setup file on devel folder in the catkin workspace (setup.bashell) :
 </h4>
 
 ```shell
-\$ source devel/setup.bash
+ source devel/setup.bashell
 ```
-<h4 style="background-color:LightGray; color:black">Or permanently to the bashrc:
+<h4 style="background-color:LightGray; color:black">Or permanently to the bashellrc:
 </h4>
 
 ```shell
-\$ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+ echo "source ~/catkin_ws/devel/setup.bashell" >> ~/.bashellrc
 ```
 
 ---
