@@ -165,11 +165,11 @@
 
 
 ```shell
- echo 'export PATH=/usr/local/cuda-12.1/bin{PATH:+:{PATH}}' >> ~/.bashellrc
+ echo 'export PATH=/usr/local/cuda-12.1/bin{PATH:+:{PATH}}' >> ~/.bashrc
 
- echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/usr/local/cuda-12.1/lib64{LD_LIBRARY_PATH:+:{LD_LIBRARY_PATH}}"' >> ~/.bashellrc
+ echo 'export LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda-12/lib64:/usr/local/cuda-12.1/lib64{LD_LIBRARY_PATH:+:{LD_LIBRARY_PATH}}"' >> ~/.bashrc
 
- echo 'export PATH=/usr/lib/cuda-12.1/include:PATH' >> ~/.bashellrc
+ echo 'export PATH=/usr/lib/cuda-12.1/include:PATH' >> ~/.bashrc
 ```
 <h4 style="background-color:Gold; color:black" id="sym_link"> Note: Symbolic link of libcudnn library files - If you choose the Method 1 when installing cuDNN the library, the cudnn library files may or may not be linked and you would have to link these manually: </h5>
 <h4 style="background-color:LightGray; color:black;">   
@@ -184,13 +184,13 @@ You can try to do so with the command <code style="color:blue">ldconfig</code>:
 <h4 style="background-color:LightGray; color:black;"> 
 In the case where <code style="color:blue">ldconfig</code> does not work, you link the <code style="color:blue">libcudnn*.so</code> files manually  
 <ul>
-  <li> Run the cudnn-cuda symlink bashell script <code style="color:blue">cuda-gpu-config/cudnn-cuda-symlink.shell</code> onto the terminal:
+  <li> Run the cudnn-cuda symlink bash script <code style="color:blue">cuda-gpu-config/cudnn-cuda-symlink.shell</code> onto the terminal:
 </ul>
 </h4>  
 
 ```shell
- bashell cuda-gpu-config/cudnn-cuda-symlink.shell <cuda-version-number> 
-# e.g. bashell cuda-gpu-config/cudnn-cuda-symlink.shell 11.8  
+ bash cuda-gpu-config/cudnn-cuda-symlink.shell <cuda-version-number> 
+# e.g. bash cuda-gpu-config/cudnn-cuda-symlink.shell 11.8  
 ```
 
 <h4 style="background-color:LightGray; color:black;"> Check if worked
@@ -302,7 +302,7 @@ In the case where <code style="color:blue">ldconfig</code> does not work, you li
 <h4 style="background-color:LightGray; color:black;">  Enter the following to install Anaconda for Python 3.7 or later:</h4>
 
 ```shell
- bashell ~/Downloads/Anaconda3-2021.05-Linux-x86_64.shell
+ bash ~/Downloads/Anaconda3-2021.05-Linux-x86_64.shell
 ```
 <h4 style="background-color:LightGray; color:black;"> 
  Follow the steps on the provided link in the beginning (from step 4 - 10): </h4>
@@ -477,13 +477,23 @@ OPENCV With GPU Support from Source Code
 ```shell
  conda uninstall libtiff
 ```
-<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bashell-script`  which has the cli commands shellown below to build opencv from source code:</h5>
+<h5 style="background-color:LightGray; color:black;">
+  <ul> 
+    <li>Install the following stdc++ library into your anaconda environement:
+  </ul>
+</h5>
 
 ```shell
- bashell cuda-gpu-gpu/opencv.shell
+conda install -c conda-forge libstdcxx-ng
 ```
 
-![opencv-bashell-script](opencv-bash-script.png)
+<h5 style="background-color:LightGray; color:black;"> Run the `opencv-bash-script`  which has the cli commands shown below to build opencv from source code:</h5>
+
+```shell
+ bash cuda-gpu-gpu/opencv.sh
+```
+
+![opencv-bash-script](opencv-bash-script.png)
 
 ---
 
@@ -606,15 +616,15 @@ Follow the tutorials from the  links below:
 ---
 
 <h4 style="background-color:LightGray; color:black">
-BAshellRC CUDA - Exporting CUDA Enviroment variables
+bashRC CUDA - Exporting CUDA Enviroment variables
 </h4>
 
 ---
 
  <h4 style="background-color:LightSteelBlue; color:black" >
  <ul>
-  <li>The process of exporting cuda paths for multiple cuda versions has been automated to the <code style="color:Blue">.bashellr_cuda</code> file shellown below.
-  <li> This file automates the process using function and is sourced to <code style="color:Blue">~/.bashellrc</code> script as <code style="color:Blue">~/.bashellrc_cuda</code>.
+  <li>The process of exporting cuda paths for multiple cuda versions has been automated to the <code style="color:Blue">.bashr_cuda</code> file shellown below.
+  <li> This file automates the process using function and is sourced to <code style="color:Blue">~/.bashrc</code> script as <code style="color:Blue">~/.bashrc_cuda</code>.
   <li> The paths are imported according to the active conda environment.
   <li> For Computer Vision for CUDA Opencv Env, you use cuda 11.8/ earlier
   <li> To activate the environment with a specific version of cuda youse th <code style="color:Blue">conda_activate</code> function
@@ -734,17 +744,17 @@ Creating a ROS Work Space:
 <h4 style="background-color:LightSkyBlue; color:black"> This will configure catkin_make with Python 3. You may then proceed to use just catkin_make for <br>subsequent builds.
 </h4>
 <br>
-<h4 style="background-color:LightGray; color:black"> Source new setup file on devel folder in the catkin workspace (setup.bashell) :
+<h4 style="background-color:LightGray; color:black"> Source new setup file on devel folder in the catkin workspace (setup.bash) :
 </h4>
 
 ```shell
- source devel/setup.bashell
+ source devel/setup.bash
 ```
-<h4 style="background-color:LightGray; color:black">Or permanently to the bashellrc:
+<h4 style="background-color:LightGray; color:black">Or permanently to the bashrc:
 </h4>
 
 ```shell
- echo "source ~/catkin_ws/devel/setup.bashell" >> ~/.bashellrc
+ echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 ```
 
 ---
