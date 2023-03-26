@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set OpenCV version
-OPENCV_VERSION="4.5.5"
+OPENCV_VERSION="4.7.0"
 
 # Set CUDA version
 CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \([0-9]\+\.[0-9]\+\).*$/\1/p')
@@ -14,7 +14,7 @@ echo "CUDNN_PATH: ${CUDNN_PATH}"
 # If opencv exist within environment, remove it
 pip3 uninstall opencv-python
 pip3 uninstall opencv-contrib-python
-pip3 uninstall opencv-headless-python
+pip3 uninstall opencv-python-headless
 
 # Clone opencv and opencv-contrib repositories
 git clone https://github.com/opencv/opencv.git
@@ -49,8 +49,8 @@ cmake \
     -D CUDNN_INCLUDE_DIR=${CUDNN_PATH}/include \
     -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
     -D PYTHON_INCLUDE_DIR=$(python3 -c "from sysconfig import get_path; print(get_path(\"include\"))") \
-    -D PYTHON_LIBRARY=$(python3 -c "from sysconfig import get_path; print(get_path(\"platlib\"))")\
-    -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \ 
+    -D PYTHON_LIBRARY=$(python3 -c "from sysconfig import get_path; print(get_path(\"platlib\"))") \
+    -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
     -D BUILD_TIFF=ON \
     -D BUILD_EXAMPLES=ON \
     ..
@@ -58,17 +58,17 @@ cmake \
 # Build and install OpenCV
 make -j$(nproc)
 
-make install
+sudo make install
 
-ldconfig
+sudo ldconfig
 
 cd ../../
 
 # Cleanup
 rm -rf opencv 
-rm -rf opecnv_contrib
+rm -rf opencv_contrib
 
-# May have to link cv2.so files to cv2.cpython*.so file  maunually
+# Symbolic link to opencv bindings
 cd $(python3 -c "import os; from sysconfig import get_path; print(os.path.join(get_path(\"platlib\"), 'cv2', 'python*'))")
-ln -sf cv2.cpython*.so cv2.so
+sudo ln -sf cv2.cpython*.so cv2.so
 
